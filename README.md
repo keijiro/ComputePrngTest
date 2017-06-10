@@ -2,7 +2,7 @@ Compute PRNG Test
 -----------------
 
 This is a simple test project for a pseudo random number generator that is
-designed for using in compute shaders.
+designed for being used in compute shaders.
 
 ![screenshot](http://i.imgur.com/JM1SrFAm.png)
 
