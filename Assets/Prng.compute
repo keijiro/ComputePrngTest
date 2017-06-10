@@ -1,0 +1,28 @@
+﻿#pragma kernel TesterKernel
+
+RWTexture2D<float4> Result;
+
+// Hash function from H. Schechter & R. Bridson, goo.gl/RXiKaH
+float Hash(uint s)
+{
+    s = s ^ 2747636419u;
+    s = s * 2654435769u;
+    s = s ^ (s >> 16);
+    s = s * 2654435769u;
+    s = s ^ (s >> 16);
+    s = s * 2654435769u;
+    return s;
+}
+
+float Random(uint seed)
+{
+    return float(Hash(seed)) / 4294967295.0; // 2^32-1
+}
+
+[numthreads(8, 8, 1)]
+void TesterKernel(uint2 id : SV_DispatchThreadID)
+{
+    float w, h;
+    Result.GetDimensions(w, h);
+    Result[id.xy] = Random(id.x + id.y * w);
+}
